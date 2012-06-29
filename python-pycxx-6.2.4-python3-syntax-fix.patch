@@ -1,0 +1,16 @@
+In python 3, 'print()' is now a function:
+http://docs.python.org/release/3.0.1/whatsnew/3.0.html
+
+--- pycxx-6.2.4.orig/Lib/__init__.py.orig	2012-06-28 13:34:47.000000000 -0500
++++ pycxx-6.2.4.orig/Lib/__init__.py	2012-06-28 13:33:36.000000000 -0500
+@@ -34,8 +34,8 @@
+ # DAMAGE.
+ #
+ #-----------------------------------------------------------------------------
+-print """CXX is installed. 
++print ("""CXX is installed. 
+ The support files you need are in the PYTHON/etc/CXX directory. 
+ The include files are in the distutils include path already.
+ Just refer to them as "CXX/CXX_Objects.h", etc.
+-"""
++""")
