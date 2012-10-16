@@ -83,7 +83,7 @@ INSTALL='setup.py install
         --install-headers=%{_includedir}/CXX
         --install-data=%{_usrsrc}'
 
-%{__python2} $INSTALL
+%{__python} $INSTALL
 
 %if 0%{?_with_python3:1}
 %{__python3} $INSTALL
