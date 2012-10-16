@@ -1,3 +1,6 @@
+%if (0%{?rhel} >= 5)
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%endif
 %global modname pycxx
 
 # Specify '--with=python3' to build the python 3 RPM
@@ -110,7 +113,7 @@ EOF
 %{_includedir}/CXX/*.hxx
 %{_includedir}/CXX/*.h
 %{_includedir}/CXX/Python2
-%{python2_sitelib}/CXX*
+%{python_sitelib}/CXX*
 %dir %{_usrsrc}/CXX
 %{_usrsrc}/CXX/*.cxx
 %{_usrsrc}/CXX/*.c
