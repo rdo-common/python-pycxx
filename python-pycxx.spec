@@ -7,7 +7,7 @@
 
 Name:           python-%{modname}
 Version:        6.2.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Write Python extensions in C++
 
 Group:          Development/Libraries
@@ -143,6 +143,9 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.2.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
