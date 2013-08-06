@@ -1,1 +1,9 @@
-/pycxx-6.2.4.tar.gz
+# ignore sources
+/pycxx-6.*.tar.gz
+/cxx-code-*.zip
+
+# ignore fedpkg local build artifacts
+/.build-6.*.log
+/python-pycxx-6.*.src.rpm
+/noarch/
+/cxx-code-*-trunk/

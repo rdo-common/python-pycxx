@@ -5,9 +5,13 @@
 
 # Specify '--with=python3' to build the python 3 RPM
 
+%global svn_rev 280
+%global download_date 20130805
+%global vcs_rel %{download_date}svn%{svn_rev}
+
 Name:           python-%{modname}
 Version:        6.2.4
-Release:        6%{?dist}
+Release:        7.%{vcs_rel}%{?dist}
 Summary:        Write Python extensions in C++
 
 Group:          Development/Libraries
@@ -16,7 +20,9 @@ URL:            http://CXX.sourceforge.net/
 
 BuildArch:      noarch
 
-Source0:        http://downloads.sourceforge.net/cxx/%{modname}-%{version}.tar.gz
+# SVN version supports Python3
+#Source0:        http://downloads.sourceforge.net/cxx/%{modname}-%{version}.tar.gz
+Source0:        http://sourceforge.net/code-snapshots/svn/c/cx/cxx/code/cxx-code-%{svn_rev}-trunk.zip
 # Patch0:  remove unnecessary 'Src/' directory from include path in sources
 Patch0:         %{name}-%{version}-change-include-paths.patch
 # Patch1:  fix several problems with install, esp. omitted files, python 
@@ -69,10 +75,12 @@ for Python 3.  There is no non-devel package needed.
 
 
 %prep
-%setup -q -n %{modname}-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+# SVN version .zip file unpacks differently
+%setup -q -n cxx-code-%{svn_rev}-trunk/CXX
+#%setup -q -n %{modname}-%{version}
+%patch0 -p1 -b .change-include-paths
+%patch1 -p1 -b .setup
+%patch2 -p1 -b .python3-syntax-fix
 
 
 %build
@@ -143,6 +151,12 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Mon Aug  5 2013 John Morris <john@zultron.com> - 6.2.4-7.280svn20130805
+- Update to SVN r280 for python3 compatibility
+- Update python-pycxx-6.2.4-setup.py.patch to apply correctly
+- Fix %%setup for SVN zipball
+- Add diff extensions to %%patch macros
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
