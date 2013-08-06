@@ -3,7 +3,13 @@
 %endif
 %global modname pycxx
 
-# Specify '--with=python3' to build the python 3 RPM
+# Specify '--without=python3' to NOT build the python 3 RPM
+%if 0%{?rhel} && 0%{?rhel} <= 6
+# el6 has no python3 packages
+%global with_python3 0
+%else
+%global with_python3 %{?_without_python3:0} %{?!_without_python3:1}
+%endif
 
 %global svn_rev 280
 %global download_date 20130805
@@ -20,7 +26,7 @@ URL:            http://CXX.sourceforge.net/
 
 BuildArch:      noarch
 
-# SVN version supports Python3
+# SVN version contains updates for Python3
 #Source0:        http://downloads.sourceforge.net/cxx/%{modname}-%{version}.tar.gz
 Source0:        http://sourceforge.net/code-snapshots/svn/c/cx/cxx/code/cxx-code-%{svn_rev}-trunk.zip
 # Patch0:  remove unnecessary 'Src/' directory from include path in sources
@@ -32,7 +38,7 @@ Patch1:         %{name}-%{version}-setup.py.patch
 Patch2:         %{name}-%{version}-python3-syntax-fix.patch
 
 BuildRequires:  python2-devel
-%if 0%{?_with_python3:1}
+%if %{with_python3}
 BuildRequires:  python3-devel
 %endif
 
@@ -96,7 +102,7 @@ INSTALL='setup.py install
 
 %{__python} $INSTALL
 
-%if 0%{?_with_python3:1}
+%if %{with_python3}
 %{__python3} $INSTALL
 %endif
 
@@ -129,7 +135,7 @@ EOF
 %{_datadir}/pkgconfig/PyCXX.pc
 
 
-%if 0%{?_with_python3:1}
+%if %{with_python3}
 %files -n python3-%{modname}-devel
 %doc README.html COPYRIGHT Doc/Python3/ 
 %dir %{_includedir}/CXX
@@ -156,6 +162,7 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 - Update python-pycxx-6.2.4-setup.py.patch to apply correctly
 - Fix %%setup for SVN zipball
 - Add diff extensions to %%patch macros
+- Enable python3 pkg by default except for EPEL; see BZ 991342
 
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
