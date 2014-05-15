@@ -17,7 +17,7 @@
 
 Name:           python-%{modname}
 Version:        6.2.4
-Release:        7.%{vcs_rel}%{?dist}
+Release:        8.%{vcs_rel}%{?dist}
 Summary:        Write Python extensions in C++
 
 Group:          Development/Libraries
@@ -157,6 +157,9 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Wed May 14 2014 Bohuslav Kabrda <bkabrda@redhat.com> - 6.2.4-8.20130805svn280
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
+
 * Mon Aug  5 2013 John Morris <john@zultron.com> - 6.2.4-7.280svn20130805
 - Update to SVN r280 for python3 compatibility
 - Update python-pycxx-6.2.4-setup.py.patch to apply correctly
