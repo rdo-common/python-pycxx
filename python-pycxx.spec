@@ -16,8 +16,8 @@
 %global vcs_rel %{download_date}svn%{svn_rev}
 
 Name:           python-%{modname}
-Version:        6.2.4
-Release:        12.%{vcs_rel}%{?dist}
+Version:        6.2.8
+Release:        1%{?dist}
 Summary:        Write Python extensions in C++
 
 Group:          Development/Libraries
@@ -27,15 +27,13 @@ URL:            http://CXX.sourceforge.net/
 BuildArch:      noarch
 
 # SVN version contains updates for Python3
-#Source0:        http://downloads.sourceforge.net/cxx/%{modname}-%{version}.tar.gz
-Source0:        http://sourceforge.net/code-snapshots/svn/c/cx/cxx/code/cxx-code-%{svn_rev}-trunk.zip
+Source0:        http://downloads.sourceforge.net/cxx/%{modname}-%{version}.tar.gz
+#Source0:        http://sourceforge.net/code-snapshots/svn/c/cx/cxx/code/cxx-code-%{svn_rev}-trunk.zip
 # Patch0:  remove unnecessary 'Src/' directory from include path in sources
 Patch0:         %{name}-%{version}-change-include-paths.patch
 # Patch1:  fix several problems with install, esp. omitted files, python 
 # v2/v3 awareness
 Patch1:         %{name}-%{version}-setup.py.patch
-# Patch2:  fix python 3 syntax error (print() is a function)
-Patch2:         %{name}-%{version}-python3-syntax-fix.patch
 
 BuildRequires:  python2-devel
 %if %{with_python3}
@@ -82,11 +80,10 @@ for Python 3.  There is no non-devel package needed.
 
 %prep
 # SVN version .zip file unpacks differently
-%setup -q -n cxx-code-%{svn_rev}-trunk/CXX
-#%setup -q -n %{modname}-%{version}
+#setup -q -n cxx-code-%{svn_rev}-trunk/CXX
+%setup -q -n %{modname}-%{version}
 %patch0 -p1 -b .change-include-paths
 %patch1 -p1 -b .setup
-%patch2 -p1 -b .python3-syntax-fix
 
 
 %build
@@ -157,6 +154,9 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Mon May 16 2016 Richard Shaw <hobbes1069@gmail.com> - 6.2.8-1
+- Update to latest upstream release.
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.4-12.20130805svn280
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
