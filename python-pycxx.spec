@@ -17,7 +17,7 @@
 
 Name:           python-%{modname}
 Version:        6.2.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Write Python extensions in C++
 
 Group:          Development/Libraries
@@ -154,6 +154,9 @@ test "$(pkg-config --modversion PyCXX)" = "%{version}"
 
 
 %changelog
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.2.8-2
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Mon May 16 2016 Richard Shaw <hobbes1069@gmail.com> - 6.2.8-1
 - Update to latest upstream release.
 
