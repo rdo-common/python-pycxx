@@ -4,7 +4,7 @@
 %global modname pycxx
 
 # Specify '--without=python3' to NOT build the python 3 RPM
-%if 0%{?rhel} && 0%{?rhel} <= 6
+%if 0%{?rhel} && 0%{?rhel} <= 7
 # el6 has no python3 packages
 %global with_python3 0
 %else
